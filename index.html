@@ -443,114 +443,186 @@
     }
     .pin-info-row strong { color: #fff; }
 
-    /* ── GALLERY BENTO ── */
+    /* ── GALLERY CAROUSEL ── */
     #gallery {
       padding: 120px 80px;
     }
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: repeat(3, 240px);
-      gap: 4px;
+    .night-carousel {
       margin-top: 64px;
-    }
-    .bento-cell {
-      position: relative; overflow: hidden;
-      background: #0a0a0a;
-      border: 1px solid rgba(255,255,255,.06);
-      cursor: pointer;
-      transition: transform .4s cubic-bezier(.25,.46,.45,.94);
-    }
-    .bento-cell:hover { z-index: 10; transform: scale(1.02); }
-
-    /* grid placements */
-    .bc-1 { grid-column: 1/5;  grid-row: 1/3; }
-    .bc-2 { grid-column: 5/8;  grid-row: 1/2; }
-    .bc-3 { grid-column: 8/13; grid-row: 1/2; }
-    .bc-4 { grid-column: 5/8;  grid-row: 2/3; }
-    .bc-5 { grid-column: 8/11; grid-row: 2/3; }
-    .bc-6 { grid-column: 11/13;grid-row: 2/3; }
-    .bc-7 { grid-column: 1/4;  grid-row: 3/4; }
-    .bc-8 { grid-column: 4/8;  grid-row: 3/4; }
-    .bc-9 { grid-column: 8/13; grid-row: 3/4; }
-
-    .bento-bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
-      filter: brightness(.7);
-    }
-    .bento-cell:hover .bento-bg { transform: scale(1.05); filter: brightness(.9); }
-
-    /* LED billboard graphic in bento */
-    .bento-led {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
       position: relative;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #04040a;
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
     }
-    .bento-screen {
-      width: 70%; aspect-ratio: 16/9;
-      border: 1px solid rgba(255,255,255,.15);
-      display: flex; align-items: center; justify-content: center;
+    .night-track {
+      display: flex;
+      transition: transform .7s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+    }
+    .night-slide {
+      min-width: 100%;
       position: relative;
-      box-shadow: 0 0 30px var(--glow-color, rgba(30,91,168,.5));
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      --slide-image: none;
     }
-    .bento-screen-content {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: clamp(14px, 2.5vw, 36px);
-      letter-spacing: .1em;
-      text-align: center; padding: 10px;
-      color: var(--glow-color, var(--blue));
-      text-shadow: 0 0 20px var(--glow-color, var(--blue));
-    }
-
-    .bento-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 50%);
+    .night-slide::before {
+      content: '';
+      position: absolute;
+      inset: -8%;
+      background-image: var(--slide-image);
+      background-size: cover;
+      background-position: center;
+      filter: blur(34px) saturate(1.12);
+      transform: scale(1.12);
       opacity: 0;
-      transition: opacity .3s;
-      display: flex; flex-direction: column;
-      justify-content: flex-end; padding: 20px;
+      transition: opacity .35s ease;
+      z-index: 0;
     }
-    .bento-cell:hover .bento-overlay { opacity: 1; }
-    .bento-location {
+    .night-slide img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.02) brightness(.93);
+      transform: scale(1.01);
+    }
+    .night-slide.is-portrait::before {
+      opacity: .92;
+    }
+    .night-slide.is-portrait img {
+      object-fit: contain;
+      transform: none;
+      padding: 0 1.6vw;
+      filter: saturate(1.05) contrast(1.03) brightness(.98);
+    }
+    .night-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.25) 35%, rgba(0,0,0,0) 65%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .night-slide-caption {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 24px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    .night-place {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 14px;
-      letter-spacing: .1em; text-transform: uppercase;
-      margin-bottom: 8px;
+      font-size: clamp(16px, 2vw, 28px);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 6px 30px rgba(0,0,0,.55);
     }
-    .bento-specs {
-      display: flex; gap: 12px;
+    .night-meta {
       font-family: 'Space Mono', monospace;
-      font-size: 9px; letter-spacing: .15em;
-      color: rgba(255,255,255,.6);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(0,0,0,.3);
+      white-space: nowrap;
     }
-    .spec-badge {
-      padding: 2px 6px;
-      border: 1px solid rgba(255,255,255,.2);
-      font-size: 8px;
+    .night-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(5,5,10,.3);
+      color: rgba(255,255,255,.72);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: .4;
+      transition: opacity .25s, background .25s, border-color .25s, transform .25s;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+    .night-arrow.prev { left: 14px; }
+    .night-arrow.next { right: 14px; }
+    .night-carousel:hover .night-arrow,
+    .night-arrow:focus-visible {
+      opacity: .88;
+    }
+    .night-arrow:hover {
+      background: rgba(0,0,0,.5);
+      border-color: rgba(255,255,255,.42);
+      transform: translateY(-50%) scale(1.04);
+    }
+    .night-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .night-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      background: rgba(255,255,255,.35);
+      transition: transform .2s, background .2s;
+      padding: 0;
+    }
+    .night-dot.active {
+      background: var(--blue);
+      transform: scale(1.25);
+      box-shadow: 0 0 10px rgba(30,91,168,.65);
     }
 
     /* ── SERVICES ── */
     #services {
       padding: 120px 80px;
-      background: #020204;
+      background: #f2f1ed;
+    }
+    #services .section-label {
+      color: rgba(23,23,23,.58);
+    }
+    #services .section-title {
+      color: #111111;
     }
     .services-grid {
       display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
-      margin-top: 64px; background: var(--glass-border);
+      margin-top: 64px; background: rgba(0,0,0,.12);
     }
     .service-card {
-      background: #000; padding: 56px 40px;
+      background: #f8f7f3; padding: 56px 40px;
       position: relative; overflow: hidden;
       transition: background .3s;
     }
-    .service-card:hover { background: rgba(255,255,255,.02); }
+    .service-card:hover { background: #f1eee7; }
     .service-num {
       font-family: 'Space Mono', monospace;
       font-size: 11px; letter-spacing: .3em;
-      color: rgba(255,255,255,.2); margin-bottom: 40px;
+      color: rgba(23,23,23,.45); margin-bottom: 40px;
     }
     .service-icon {
       width: 52px; height: 52px; margin-bottom: 28px;
@@ -560,12 +632,13 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 800; font-size: 22px;
       letter-spacing: .08em; text-transform: uppercase;
+      color: #111111;
       margin-bottom: 16px;
     }
     .service-desc {
       font-family: 'Rajdhani', sans-serif;
       font-size: 16px; line-height: 1.6;
-      color: rgba(255,255,255,.4);
+      color: rgba(23,23,23,.68);
     }
     .service-line {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -766,8 +839,15 @@
     /* ── BANDEROLAS ── */
     #banderolas {
       padding: 120px 80px;
-      background: #020206;
+      background: #f2f1ed;
+      color: #171717;
       position: relative; overflow: hidden;
+    }
+    #banderolas .section-label {
+      color: rgba(23,23,23,.58);
+    }
+    #banderolas .section-title {
+      color: #111111;
     }
     .band-intro {
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
@@ -776,9 +856,9 @@
     .band-right {
       font-family: 'Rajdhani', sans-serif;
       font-size: 18px; line-height: 1.75;
-      color: rgba(255,255,255,.45);
+      color: rgba(23,23,23,.72);
     }
-    .band-right strong { color: var(--orange); font-weight: 700; }
+    .band-right strong { color: var(--red); font-weight: 700; }
     .band-right p + p { margin-top: 20px; }
 
     /* Street visualization */
@@ -883,33 +963,33 @@
     /* Feature grid */
     .band-features {
       display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
-      background: var(--glass-border);
+      background: rgba(0,0,0,.12);
     }
     .band-feat {
-      background: #000; padding: 40px 36px;
+      background: #f8f7f3; padding: 40px 36px;
       position: relative; overflow: hidden;
       transition: background .3s;
     }
-    .band-feat:hover { background: rgba(255,140,26,.03); }
+    .band-feat:hover { background: rgba(230,57,70,.08); }
     .band-feat-icon {
       width: 44px; height: 44px; margin-bottom: 20px;
-      color: var(--orange);
+      color: var(--red);
     }
     .band-feat-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800; font-size: 17px;
       letter-spacing: .08em; text-transform: uppercase;
-      margin-bottom: 12px; color: #fff;
+      margin-bottom: 12px; color: #111;
     }
     .band-feat-desc {
       font-family: 'Rajdhani', sans-serif;
       font-size: 15px; line-height: 1.65;
-      color: rgba(255,255,255,.38);
+      color: rgba(23,23,23,.68);
     }
     .band-feat-line {
       position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px; background: var(--orange);
-      box-shadow: 0 0 10px var(--orange);
+      height: 2px; background: var(--red);
+      box-shadow: 0 0 10px var(--red);
       transform: scaleX(0); transform-origin: left;
       transition: transform .4s cubic-bezier(.25,.46,.45,.94);
     }
@@ -919,20 +999,20 @@
     .band-territory {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 12px 24px;
-      border: 1px solid rgba(255,140,26,.3);
-      background: rgba(255,140,26,.05);
+      border: 1px solid rgba(230,57,70,.35);
+      background: rgba(230,57,70,.08);
       margin-bottom: 32px;
     }
     .band-territory-dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 12px var(--orange);
+      background: var(--red);
+      box-shadow: 0 0 12px var(--red);
       animation: glowPulse 1.5s ease-in-out infinite;
     }
     .band-territory-text {
       font-family: 'Space Mono', monospace;
       font-size: 10px; letter-spacing: .35em;
-      color: var(--orange); text-transform: uppercase;
+      color: var(--red); text-transform: uppercase;
     }
 
     /* ── RESPONSIVE ── */
@@ -941,8 +1021,7 @@
       .nav-links { display: none; }
       #manifesto, #numbers, #impact-map, #banderolas, #gallery, #services, #cta, footer { padding-left: 24px; padding-right: 24px; }
       #numbers { grid-template-columns: repeat(2,1fr); }
-      .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-      .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7,.bc-8,.bc-9 { grid-column: auto; grid-row: auto; }
+      .night-carousel { margin-top: 48px; }
       .services-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
       .cta-details { gap: 24px; }
@@ -1067,34 +1146,38 @@
         letter-spacing: .12em !important;
       }
 
-      .bento-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: none;
-        grid-auto-rows: minmax(220px, auto);
-        gap: 8px;
+      .night-carousel {
         margin-top: 36px;
       }
-      .bento-cell {
-        min-height: 220px;
+      .night-slide {
+        aspect-ratio: 4/5;
       }
-      .bento-screen {
-        width: 78%;
+      .night-slide.is-portrait img {
+        padding: 0 2.4vw;
       }
-      .bento-overlay {
-        opacity: 1;
-        padding: 16px;
-        background: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.15) 70%);
-      }
-      .bento-location {
-        font-size: 12px;
-      }
-      .bento-specs {
-        flex-wrap: wrap;
+      .night-slide-caption {
+        left: 16px;
+        right: 16px;
+        bottom: 14px;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 8px;
-        font-size: 8px;
       }
-      .spec-badge {
-        font-size: 7px;
+      .night-place {
+        font-size: clamp(14px, 6vw, 24px);
+      }
+      .night-meta {
+        font-size: 8px;
+        letter-spacing: .16em;
+      }
+      .night-arrow {
+        width: 36px;
+        height: 36px;
+      }
+      .night-arrow.prev { left: 10px; }
+      .night-arrow.next { right: 10px; }
+      .night-dots {
+        bottom: 10px;
       }
 
       .services-grid {
@@ -1268,12 +1351,7 @@
     @media (hover: none), (pointer: coarse) {
       body { cursor: auto; }
       #cursor, #cursor-ring { display: none; }
-      .bento-overlay { opacity: 1; }
-      .bento-cell:hover,
-      .bento-cell:hover .bento-bg {
-        transform: none;
-        filter: brightness(.7);
-      }
+      .night-arrow { opacity: .82; }
     }
   </style>
 </head>
@@ -1314,7 +1392,7 @@
         <div class="lg-c" style="background:var(--red)"></div>
         <div class="lg-c" style="background:var(--red)"></div>
       </div>
-      <span class="nav-wordmark">COLORS Publicidad Exterior</span>
+      <span class="nav-wordmark">COLORS</span>
     </a>
 
     <button class="nav-cta"><span>Cotizar</span></button>
@@ -1394,7 +1472,7 @@
   <section id="impact-map">
     <p class="section-label">// Zonas de impacto</p>
     <h2 class="section-title">
-      <span class="rainbow-text">Caracas</span><br>en tu pantalla
+      <span class="rainbow-text">Caracas</span><br>galerias de pantallas
     </h2>
 
     <div class="map-container">
@@ -1422,40 +1500,40 @@
 
       <!-- Pins -->
       <div class="map-pin active" style="left:23%;top:42%;"
-           data-name="Las Mercedes" data-res="5120×2880" data-flow="45,000 peatones/día" data-color="var(--blue)" onclick="selectPin(this)">
+           data-name="Las Mercedes" data-res="256x896" data-flow="45,000 peatones/día" data-color="var(--blue)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--blue);color:var(--blue);box-shadow:0 0 20px var(--blue)"></div>
         <div class="pin-label" style="border-color:var(--blue);color:var(--blue)">Las Mercedes</div>
       </div>
 
       <div class="map-pin" style="left:42%;top:38%;"
-           data-name="CCCT" data-res="4096×2304" data-flow="38,000 vehículos/día" data-color="var(--green)" onclick="selectPin(this)">
+           data-name="Av. Francisco de Miranda" data-res="256x896" data-flow="38,000 vehículos/día" data-color="var(--green)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--green);color:var(--green);box-shadow:0 0 20px var(--green)"></div>
-        <div class="pin-label" style="border-color:var(--green);color:var(--green)">CCCT</div>
+        <div class="pin-label" style="border-color:var(--green);color:var(--green)">Av. Francisco de Miranda</div>
       </div>
 
       <div class="map-pin" style="left:62%;top:45%;"
-           data-name="El Rosal" data-res="3840×2160" data-flow="52,000 vehículos/día" data-color="var(--yellow)" onclick="selectPin(this)">
+           data-name="Calle Helice" data-res="256x896" data-flow="52,000 vehículos/día" data-color="var(--yellow)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--yellow);color:var(--yellow);box-shadow:0 0 20px var(--yellow)"></div>
-        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">El Rosal</div>
+        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">Calle Helice</div>
       </div>
 
       <div class="map-pin" style="left:78%;top:35%;"
-           data-name="Chacao" data-res="6144×3456" data-flow="61,000 peatones/día" data-color="var(--orange)" onclick="selectPin(this)">
+           data-name="Aeropuerto" data-res="256x896" data-flow="61,000 peatones/día" data-color="var(--orange)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--orange);color:var(--orange);box-shadow:0 0 20px var(--orange)"></div>
-        <div class="pin-label" style="border-color:var(--orange);color:var(--orange)">Chacao</div>
+        <div class="pin-label" style="border-color:var(--orange);color:var(--orange)">Aeropuerto</div>
       </div>
 
       <div class="map-pin" style="left:35%;top:65%;"
-           data-name="Altamira" data-res="4096×2304" data-flow="29,000 vehículos/día" data-color="var(--red)" onclick="selectPin(this)">
+           data-name="Metro de Plaza Venezuela" data-res="256x896" data-flow="29,000 vehículos/día" data-color="var(--red)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--red);color:var(--red);box-shadow:0 0 20px var(--red)"></div>
-        <div class="pin-label" style="border-color:var(--red);color:var(--red)">Altamira</div>
+        <div class="pin-label" style="border-color:var(--red);color:var(--red)">Metro de Plaza Venezuela</div>
       </div>
 
       <!-- Info panel -->
       <div class="map-pin-info visible" id="map-info">
         <div class="pin-info-name" id="info-name">Las Mercedes</div>
         <div class="pin-info-row">
-          <span>Resolución</span><strong id="info-res">5120×2880</strong>
+          <span>Resolución</span><strong id="info-res">256x896</strong>
         </div>
         <div class="pin-info-row">
           <span>Flujo</span><strong id="info-flow">45,000 peatones/día</strong>
@@ -1472,163 +1550,69 @@
     </div>
   </section>
 
-  <!-- ── GALLERY BENTO ── -->
+  <!-- ── GALLERY CAROUSEL ── -->
   <section id="gallery">
     <p class="section-label">// Nuestra galería</p>
     <h2 class="section-title">
       Pantallas que<br><span class="rainbow-text">dominan</span> la noche
     </h2>
 
-    <div class="bento-grid">
-
-      <!-- Cell 1 — large -->
-      <div class="bento-cell bc-1">
-        <div class="bento-led" style="background:linear-gradient(135deg,#000010,#000820)">
-          <div class="bento-screen" style="--glow-color:var(--blue);box-shadow:0 0 60px rgba(30,91,168,.6),inset 0 0 40px rgba(30,91,168,.1)">
-            <div class="bento-screen-content" style="color:var(--blue)">
-              LED<br>4K
-            </div>
-            <!-- scanlines -->
-            <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.2) 3px,rgba(0,0,0,.2) 4px);pointer-events:none"></div>
+    <div class="night-carousel" id="night-carousel" aria-label="Carrusel de pantallas nocturnas">
+      <div class="night-track" id="night-track">
+        <article class="night-slide">
+          <img src="images/night/1.jpg" alt="Pantalla LED nocturna en vía urbana" loading="lazy" decoding="async">
+          <div class="night-slide-caption">
+            <div class="night-place">Av. Francisco Miranda</div>
+            <div class="night-meta">Galeria de Pantallas</div>
           </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Las Mercedes — Av. Principal</div>
-          <div class="bento-specs">
-            <span class="spec-badge">5120×2880</span>
-            <span class="spec-badge">8mm PITCH</span>
-            <span class="spec-badge">24/7</span>
+        </article>
+        <article class="night-slide">
+          <img src="images/night/2.jpg" alt="Anuncio digital de noche en avenida" loading="lazy" decoding="async">
+          <div class="night-slide-caption">
+            <div class="night-place">La Trinidad</div>
+            <div class="night-meta">Tipi Tipi</div>
           </div>
-        </div>
+        </article>
+        <article class="night-slide">
+          <img src="images/night/3.PNG" alt="Pantalla exterior iluminando la noche" loading="lazy" decoding="async">
+          <div class="night-slide-caption">
+            <div class="night-place">Las Mercedes</div>
+            <div class="night-meta">Galeria de Pantallas</div>
+          </div>
+        </article>
+        <article class="night-slide">
+          <img src="images/night/4.PNG" alt="Publicidad exterior nocturna en Caracas" loading="lazy" decoding="async">
+          <div class="night-slide-caption">
+            <div class="night-place">Av. Francisco Miranda</div>
+            <div class="night-meta">Galeria de Pantallas</div>
+          </div>
+        </article>
       </div>
 
-      <!-- Cell 2 -->
-      <div class="bento-cell bc-2">
-        <div class="bento-led" style="background:linear-gradient(135deg,#000800,#001500)">
-          <div class="bento-screen" style="--glow-color:var(--green);width:75%;box-shadow:0 0 40px rgba(122,201,67,.5),inset 0 0 30px rgba(122,201,67,.1)">
-            <div class="bento-screen-content" style="color:var(--green);font-size:clamp(12px,2vw,28px)">CCCT</div>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">CCCT — Torre Este</div>
-          <div class="bento-specs"><span class="spec-badge">4K UHD</span><span class="spec-badge">HDR</span></div>
-        </div>
-      </div>
+      <button class="night-arrow prev" id="night-prev" type="button" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </button>
+      <button class="night-arrow next" id="night-next" type="button" aria-label="Siguiente slide">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </button>
 
-      <!-- Cell 3 -->
-      <div class="bento-cell bc-3">
-        <div class="bento-led" style="background:linear-gradient(135deg,#100800,#1a0c00)">
-          <div class="bento-screen" style="--glow-color:var(--yellow);box-shadow:0 0 40px rgba(255,212,38,.5),inset 0 0 30px rgba(255,212,38,.08)">
-            <div class="bento-screen-content" style="color:var(--yellow);font-size:clamp(10px,1.5vw,22px)">
-              EL ROSAL<br><span style="font-size:60%;opacity:.7;letter-spacing:.3em">ZONA PREMIUM</span>
-            </div>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">El Rosal — Av. Francisco de Miranda</div>
-          <div class="bento-specs"><span class="spec-badge">3840×2160</span><span class="spec-badge">P6</span></div>
-        </div>
-      </div>
-
-      <!-- Cell 4 -->
-      <div class="bento-cell bc-4">
-        <div class="bento-led" style="background:linear-gradient(135deg,#0f0010,#180020)">
-          <div class="bento-screen" style="--glow-color:var(--purple);width:80%;aspect-ratio:4/3;box-shadow:0 0 40px rgba(155,89,182,.5),inset 0 0 30px rgba(155,89,182,.1)">
-            <div class="bento-screen-content" style="color:var(--purple)">360°</div>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Altamira — Formato Vertical</div>
-          <div class="bento-specs"><span class="spec-badge">PORTRAIT</span><span class="spec-badge">4K</span></div>
-        </div>
-      </div>
-
-      <!-- Cell 5 -->
-      <div class="bento-cell bc-5">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#100000,#1a0000);flex-direction:column;gap:12px">
-          <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.3)">IMPRESIONES</div>
-          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(28px,4vw,52px);color:var(--red);text-shadow:0 0 30px var(--red)" id="live-counter">2.5M</div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.2)">DIARIAS · EN VIVO</div>
-          <div style="width:40px;height:2px;background:var(--red);box-shadow:0 0 10px var(--red);animation:glowPulse 1s ease-in-out infinite"></div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Métrica en Tiempo Real</div>
-          <div class="bento-specs"><span class="spec-badge">LIVE DATA</span></div>
-        </div>
-      </div>
-
-      <!-- Cell 6 -->
-      <div class="bento-cell bc-6">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0010,#050008)">
-          <div style="text-align:center">
-            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(20px,3vw,40px);background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow),var(--orange),var(--red),var(--purple));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rgbShift 2s linear infinite">RGB</div>
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.3em;color:rgba(255,255,255,.3);margin-top:4px">16M COLORES</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cell 7 -->
-      <div class="bento-cell bc-7">
-        <div class="bento-led" style="background:linear-gradient(135deg,#000f10,#001a1c)">
-          <div class="bento-screen" style="--glow-color:#00E5FF;width:75%;box-shadow:0 0 40px rgba(0,229,255,.4),inset 0 0 30px rgba(0,229,255,.08)">
-            <div class="bento-screen-content" style="color:#00E5FF;font-size:clamp(10px,1.5vw,18px)">CHACAO<br>DOWNTOWN</div>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Chacao — Centro Comercial</div>
-          <div class="bento-specs"><span class="spec-badge">6144×3456</span></div>
-        </div>
-      </div>
-
-      <!-- Cell 8 -->
-      <div class="bento-cell bc-8">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d0000,#1a0500);padding:32px;flex-direction:column;gap:16px">
-          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(18px,3vw,42px);letter-spacing:.15em;text-transform:uppercase;text-align:center;line-height:1">
-            <span style="color:var(--orange);text-shadow:0 0 30px var(--orange)">BRAND</span><br>
-            <span style="color:rgba(255,255,255,.3);font-size:60%">×</span><br>
-            <span style="color:var(--yellow);text-shadow:0 0 30px var(--yellow)">IMPACT</span>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Campañas de Alto Impacto</div>
-          <div class="bento-specs"><span class="spec-badge">PROGRAMMATIC</span><span class="spec-badge">FULL HD</span></div>
-        </div>
-      </div>
-
-      <!-- Cell 9 -->
-      <div class="bento-cell bc-9">
-        <div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px">
-          <div style="background:linear-gradient(135deg,rgba(30,91,168,.3),rgba(30,91,168,.1));display:flex;align-items:center;justify-content:center">
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--blue);text-shadow:0 0 10px var(--blue)">P4</div>
-          </div>
-          <div style="background:linear-gradient(135deg,rgba(122,201,67,.3),rgba(122,201,67,.1));display:flex;align-items:center;justify-content:center">
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--green);text-shadow:0 0 10px var(--green)">P6</div>
-          </div>
-          <div style="background:linear-gradient(135deg,rgba(255,212,38,.3),rgba(255,212,38,.1));display:flex;align-items:center;justify-content:center">
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--yellow);text-shadow:0 0 10px var(--yellow)">P8</div>
-          </div>
-          <div style="background:linear-gradient(135deg,rgba(230,57,70,.3),rgba(230,57,70,.1));display:flex;align-items:center;justify-content:center">
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--red);text-shadow:0 0 10px var(--red)">P10</div>
-          </div>
-        </div>
-        <div class="bento-overlay">
-          <div class="bento-location">Pitch Pixel — Tecnología LED</div>
-          <div class="bento-specs"><span class="spec-badge">MULTI-FORMAT</span></div>
-        </div>
-      </div>
-
+      <div class="night-dots" id="night-dots" aria-label="Paginación del carrusel"></div>
     </div>
   </section>
 
   <!-- ── BANDEROLAS ── -->
   <section id="banderolas">
     <!-- ambient glow -->
-    <div style="position:absolute;width:700px;height:700px;background:var(--orange);border-radius:50%;filter:blur(160px);opacity:.07;top:50%;right:-200px;transform:translateY(-50%);pointer-events:none"></div>
-    <div style="position:absolute;width:400px;height:400px;background:var(--yellow);border-radius:50%;filter:blur(120px);opacity:.05;bottom:0;left:0;pointer-events:none"></div>
+    <div style="position:absolute;width:700px;height:700px;background:var(--red);border-radius:50%;filter:blur(160px);opacity:.05;top:50%;right:-200px;transform:translateY(-50%);pointer-events:none"></div>
+    <div style="position:absolute;width:400px;height:400px;background:var(--blue);border-radius:50%;filter:blur(120px);opacity:.04;bottom:0;left:0;pointer-events:none"></div>
 
     <p class="section-label">// Formato urbano · Municipio Chacao</p>
     <h2 class="section-title band-title-anim">
-      Banderolas que<br><span style="color:var(--orange);text-shadow:0 0 40px rgba(255,140,26,.4)">visten</span> la ciudad
+      Banderolas que<br><span style="color:var(--red);text-shadow:0 0 40px rgba(230,57,70,.35)">visten</span> la ciudad
     </h2>
 
     <div class="band-intro">
@@ -1637,24 +1621,24 @@
           <div class="band-territory-dot"></div>
           <span class="band-territory-text">Cobertura total · Municipio Chacao</span>
         </div>
-        <p style="font-family:'Rajdhani',sans-serif;font-size:20px;line-height:1.7;color:rgba(255,255,255,.45)">
-          Más de <strong style="color:#fff;font-weight:700">200 banderolas</strong> distribuidas estratégicamente
+        <p style="font-family:'Rajdhani',sans-serif;font-size:20px;line-height:1.7;color:rgba(23,23,23,.75)">
+          Más de <strong style="color:#111;font-weight:700">200 banderolas</strong> distribuidas estratégicamente
           a lo largo de las principales avenidas, bulevares y zonas comerciales
           del Municipio Chacao crean una presencia de marca que es
-          <strong style="color:var(--orange)">imposible ignorar</strong>.
+          <strong style="color:var(--red)">imposible ignorar</strong>.
         </p>
         <div class="band-metrics" style="margin-top:32px;display:flex;gap:32px">
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--orange);text-shadow:0 0 30px rgba(255,140,26,.4)">200<span style="font-size:50%;opacity:.6">+</span></div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:4px">Posiciones</div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--red);text-shadow:0 0 30px rgba(230,57,70,.3)">200<span style="font-size:50%;opacity:.6">+</span></div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(23,23,23,.55);text-transform:uppercase;margin-top:4px">Posiciones</div>
           </div>
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--yellow);text-shadow:0 0 30px rgba(255,212,38,.3)">14<span style="font-size:50%;opacity:.6">KM²</span></div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:4px">Área cubierta</div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--blue);text-shadow:0 0 30px rgba(30,91,168,.25)">14<span style="font-size:50%;opacity:.6">KM²</span></div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(23,23,23,.55);text-transform:uppercase;margin-top:4px">Área cubierta</div>
           </div>
           <div>
             <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--green);text-shadow:0 0 30px rgba(122,201,67,.3)">24<span style="font-size:50%;opacity:.6">H</span></div>
-            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:4px">Exposición</div>
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(23,23,23,.55);text-transform:uppercase;margin-top:4px">Exposición</div>
           </div>
         </div>
       </div>
@@ -1708,75 +1692,55 @@
       <!-- center marking -->
       <div class="band-street-marking"></div>
 
-      <!-- Street lamps (background ambience) -->
-      <div class="band-lamp" style="left:8%;"><div class="band-lamp-head"></div><div class="band-lamp-pole" style="height:120px"></div></div>
-      <div class="band-lamp" style="left:35%;"><div class="band-lamp-head"></div><div class="band-lamp-pole" style="height:120px"></div></div>
-      <div class="band-lamp" style="left:60%;"><div class="band-lamp-head"></div><div class="band-lamp-pole" style="height:120px"></div></div>
-      <div class="band-lamp" style="left:87%;"><div class="band-lamp-head"></div><div class="band-lamp-pole" style="height:120px"></div></div>
 
       <!-- BANDEROLA POLE 1 — Azul / Chacao brand -->
       <div class="band-pole-group" style="left:15%">
+        <div class="band-pole" style="height:180px"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="background:linear-gradient(180deg,var(--blue),#0d3a7a);box-shadow:0 0 20px rgba(30,91,168,.6),0 0 60px rgba(30,91,168,.2)" onmouseenter="highlightBand(this,'var(--blue)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">CHACAO</span><div class="band-flag-scan"></div></div>
           </div>
-          <div class="band-flag-item" style="background:linear-gradient(180deg,var(--blue),#0d3a7a);box-shadow:0 0 20px rgba(30,91,168,.6),0 0 60px rgba(30,91,168,.2)" onmouseenter="highlightBand(this,'var(--blue)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text">COLORS</span><div class="band-flag-scan"></div></div>
-          </div>
         </div>
-        <div class="band-pole" style="height:180px"></div>
       </div>
 
       <!-- BANDEROLA POLE 2 — Verde -->
       <div class="band-pole-group" style="left:30%">
+          <div class="band-pole" style="height:190px"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="background:linear-gradient(180deg,var(--green),#3d7a14);box-shadow:0 0 20px rgba(122,201,67,.6),0 0 60px rgba(122,201,67,.2)" onmouseenter="highlightBand(this,'var(--green)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">AV LIBERT.</span><div class="band-flag-scan"></div></div>
           </div>
-          <div class="band-flag-item" style="background:linear-gradient(180deg,var(--green),#3d7a14);box-shadow:0 0 20px rgba(122,201,67,.6),0 0 60px rgba(122,201,67,.2)" onmouseenter="highlightBand(this,'var(--green)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text">COLORS</span><div class="band-flag-scan"></div></div>
-          </div>
         </div>
-        <div class="band-pole" style="height:190px"></div>
       </div>
 
       <!-- BANDEROLA POLE 3 — Naranja (featured, taller) -->
       <div class="band-pole-group" style="left:48%">
+        <div class="band-pole" style="height:200px;background:#444;box-shadow:0 0 8px rgba(255,140,26,.2)"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="width:44px;height:100px;background:linear-gradient(180deg,var(--orange),#a34800);box-shadow:0 0 30px rgba(255,140,26,.7),0 0 80px rgba(255,140,26,.3)" onmouseenter="highlightBand(this,'var(--orange)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text" style="font-size:8px">EL ROSAL</span><div class="band-flag-scan"></div></div>
-          </div>
-          <div class="band-flag-item" style="width:44px;height:100px;background:linear-gradient(180deg,var(--orange),#a34800);box-shadow:0 0 30px rgba(255,140,26,.7),0 0 80px rgba(255,140,26,.3)" onmouseenter="highlightBand(this,'var(--orange)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text" style="font-size:8px">COLORS</span><div class="band-flag-scan"></div></div>
+            <div class="band-flag-inner"><span class="band-flag-text" style="font-size:8px">Av. Francisco</span><div class="band-flag-scan"></div></div>
           </div>
         </div>
-        <div class="band-pole" style="height:200px;background:#444;box-shadow:0 0 8px rgba(255,140,26,.2)"></div>
       </div>
 
       <!-- BANDEROLA POLE 4 — Amarillo -->
       <div class="band-pole-group" style="left:65%">
+        <div class="band-pole" style="height:175px"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="background:linear-gradient(180deg,var(--yellow),#9a7800);box-shadow:0 0 20px rgba(255,212,38,.6),0 0 60px rgba(255,212,38,.2)" onmouseenter="highlightBand(this,'var(--yellow)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text" style="color:#000">CCCT</span><div class="band-flag-scan"></div></div>
-          </div>
-          <div class="band-flag-item" style="background:linear-gradient(180deg,var(--yellow),#9a7800);box-shadow:0 0 20px rgba(255,212,38,.6),0 0 60px rgba(255,212,38,.2)" onmouseenter="highlightBand(this,'var(--yellow)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text" style="color:#000">COLORS</span><div class="band-flag-scan"></div></div>
+            <div class="band-flag-inner"><span class="band-flag-text" style="color:#ffffff">C. Helice</span><div class="band-flag-scan"></div></div>
           </div>
         </div>
-        <div class="band-pole" style="height:175px"></div>
       </div>
 
       <!-- BANDEROLA POLE 5 — Rojo -->
       <div class="band-pole-group" style="left:82%">
+        <div class="band-pole" style="height:185px"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="background:linear-gradient(180deg,var(--red),#7a0d14);box-shadow:0 0 20px rgba(230,57,70,.6),0 0 60px rgba(230,57,70,.2)" onmouseenter="highlightBand(this,'var(--red)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">ALTAMIRA</span><div class="band-flag-scan"></div></div>
           </div>
-          <div class="band-flag-item" style="background:linear-gradient(180deg,var(--red),#7a0d14);box-shadow:0 0 20px rgba(230,57,70,.6),0 0 60px rgba(230,57,70,.2)" onmouseenter="highlightBand(this,'var(--red)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text">COLORS</span><div class="band-flag-scan"></div></div>
-          </div>
         </div>
-        <div class="band-pole" style="height:185px"></div>
       </div>
 
       <!-- Ground reflection of banner glow -->
@@ -1784,9 +1748,9 @@
 
       <!-- Label -->
       <div class="band-scene-label" style="position:absolute;bottom:16px;left:24px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.25)">
-        VISUALIZACIÓN · CORREDOR BANDEROLAS CHACAO
+        VISUALIZACIÓN · BANDEROLAS
       </div>
-      <div class="band-scene-status" style="position:absolute;bottom:16px;right:24px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(255,140,26,.5)">
+      <div class="band-scene-status" style="position:absolute;bottom:16px;right:24px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(230,57,70,.55)">
         ● 200+ POSICIONES ACTIVAS
       </div>
     </div>
@@ -2021,7 +1985,7 @@
       requestAnimationFrame(animCursor);
     }
     animCursor();
-    document.querySelectorAll('a,button,.bento-cell,.map-pin').forEach(el => {
+    document.querySelectorAll('a,button,.night-slide,.night-dot,.map-pin').forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursor.style.width = '6px'; cursor.style.height = '6px';
         ring.style.width = '60px'; ring.style.height = '60px';
@@ -2110,14 +2074,11 @@
       });
     });
 
-    // Bento cells
-    gsap.utils.toArray('.bento-cell').forEach((cell, i) => {
-      gsap.from(cell, {
-        opacity: 0, y: 30, scale: .96,
-        duration: .8, ease: 'power3.out',
-        delay: i * 0.07,
-        scrollTrigger: { trigger: '#gallery', start: 'top 70%' }
-      });
+    // Gallery carousel reveal
+    gsap.from('.night-carousel', {
+      opacity: 0, y: 36,
+      duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#gallery', start: 'top 72%' }
     });
 
     // Service cards
@@ -2251,12 +2212,107 @@
         scrollTrigger: { trigger: '.band-features', start: 'top 85%' }
       });
     });
-    setInterval(() => {
-      const screens = document.querySelectorAll('.bento-screen');
-      const r = screens[Math.floor(Math.random() * screens.length)];
-      r.style.opacity = '.7';
-      setTimeout(() => r.style.opacity = '1', 80);
-    }, 3000);
+    // ── NIGHT CAROUSEL ──
+    const nightCarousel = document.getElementById('night-carousel');
+    if (nightCarousel) {
+      const nightTrack = document.getElementById('night-track');
+      const nightSlides = Array.from(nightTrack.querySelectorAll('.night-slide'));
+      const prevBtn = document.getElementById('night-prev');
+      const nextBtn = document.getElementById('night-next');
+      const dotsWrap = document.getElementById('night-dots');
+
+      let currentSlide = 0;
+      let autoPlayTimer = null;
+      const autoDelay = 4200;
+
+      function updateSlideOrientation(slide) {
+        const img = slide.querySelector('img');
+        if (!img || !img.naturalWidth || !img.naturalHeight) return;
+
+        const isPortrait = img.naturalHeight > img.naturalWidth;
+        slide.classList.toggle('is-portrait', isPortrait);
+        slide.style.setProperty('--slide-image', `url("${img.currentSrc || img.src}")`);
+      }
+
+      nightSlides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (!img) return;
+
+        if (img.complete) {
+          updateSlideOrientation(slide);
+        } else {
+          img.addEventListener('load', () => updateSlideOrientation(slide), { once: true });
+        }
+      });
+
+      const dots = nightSlides.map((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'night-dot';
+        dot.setAttribute('aria-label', `Ir al slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+          resetAutoplay();
+        });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      function renderSlide() {
+        nightTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
+
+      function goToSlide(idx) {
+        const total = nightSlides.length;
+        currentSlide = (idx + total) % total;
+        renderSlide();
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoPlayTimer = setInterval(() => {
+          goToSlide(currentSlide + 1);
+        }, autoDelay);
+      }
+
+      function stopAutoplay() {
+        if (!autoPlayTimer) return;
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+
+      function resetAutoplay() {
+        startAutoplay();
+      }
+
+      prevBtn.addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
+        resetAutoplay();
+      });
+      nextBtn.addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+        resetAutoplay();
+      });
+
+      nightCarousel.addEventListener('mouseenter', stopAutoplay);
+      nightCarousel.addEventListener('mouseleave', startAutoplay);
+      nightCarousel.addEventListener('focusin', stopAutoplay);
+      nightCarousel.addEventListener('focusout', startAutoplay);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+
+      renderSlide();
+      startAutoplay();
+    }
 
     // ── LIVE COUNTER ──
     const liveEl = document.getElementById('live-counter');
