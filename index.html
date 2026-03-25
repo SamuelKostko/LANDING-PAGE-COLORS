@@ -2105,10 +2105,44 @@
     const ring   = document.getElementById('cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    function getElementUnderCursor(x, y) {
+      return document.elementFromPoint(x, y);
+    }
+
+    function isLightBackground(el) {
+      if (!el) return false;
+      let bg;
+      while (el && el !== document.body) {
+        bg = window.getComputedStyle(el).backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
+        el = el.parentElement;
+      }
+      if (!bg) return false;
+      // Parse rgb/rgba
+      const rgb = bg.match(/rgba?\((\d+), (\d+), (\d+)/);
+      if (!rgb) return false;
+      // Simple luminance check
+      const r = parseInt(rgb[1]), g = parseInt(rgb[2]), b = parseInt(rgb[3]);
+      const luminance = 0.299*r + 0.587*g + 0.114*b;
+      return luminance > 180;
+    }
+
     function animCursor() {
       cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
       rx += (mx - rx) * .12; ry += (my - ry) * .12;
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+
+      // Detect background under cursor
+      const el = getElementUnderCursor(mx, my);
+      if (isLightBackground(el)) {
+        cursor.style.background = '#222';
+        ring.style.borderColor = 'rgba(30,30,30,.4)';
+      } else {
+        cursor.style.background = 'var(--yellow)';
+        ring.style.borderColor = 'rgba(255,212,38,.4)';
+      }
+
       requestAnimationFrame(animCursor);
     }
     animCursor();
