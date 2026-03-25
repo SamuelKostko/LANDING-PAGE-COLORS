@@ -196,6 +196,139 @@
         font-size: 9px;
         letter-spacing: .12em;
       }}
+      
+    /* Custom Modal Styles */
+    .custom-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+    }
+    .custom-modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 64px;
+    }
+    .custom-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0,0,0,.4);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 50;
+    }
+    .custom-carousel {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+    }
+    .custom-carousel-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.2s;
+    }
+    .custom-carousel-btn:hover {
+      transform: scale(1.1);
+      color: var(--orange);
+    }
+    .custom-media-container {
+      max-width: 65vw;
+      max-height: 65vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .custom-media-container img, .custom-media-container video {
+      max-width: 100%;
+      max-height: 65vh;
+      border-radius: 8px;
+      box-shadow: 0 2px 16px #000;
+      object-fit: contain;
+    }
+    .custom-media-container video {
+      background: #000;
+    }
+    .custom-carousel-dots {
+      margin-top: 18px;
+      display: flex;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .custom-modal-content {
+        padding: 50px 10px 20px 10px; /* Space for the top close button, almost no side padding */
+        max-width: 98vw;
+        max-height: 98vh;
+        width: 100%;
+      }
+      .custom-carousel {
+        gap: 0;
+      }
+      .custom-media-container {
+        max-width: 100vw;
+        max-height: 80vh;
+        width: 100%;
+      }
+      .custom-media-container img {
+        max-height: 80vh;
+        width: 100%;
+        border-radius: 4px;
+        object-fit: contain;
+      }
+      .custom-media-container video {
+        height: 80vh;
+        width: 100vw;
+        max-width: 100vw;
+        max-height: 80vh;
+        border-radius: 4px;
+        object-fit: cover;
+        background: #000;
+        display: block;
+      }
+      .custom-carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.5);
+        padding: 10px;
+        border-radius: 50%;
+        font-size: 24px;
+      }
+      .custom-carousel-btn:hover {
+        transform: translateY(-50%) scale(1.1);
+      }
+      #gallery-prev {
+        left: 5px;
+      }
+      #gallery-next {
+        right: 5px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -288,7 +421,7 @@
       </div>
       <div class="map-pin" style="left:62%;top:45%;">
         <div class="pin-dot" style="background:var(--yellow);color:var(--yellow);box-shadow:0 0 20px var(--yellow)"></div>
-        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">Calle Helice</div>
+        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">Calle Elice</div>
       </div>
       <div class="map-pin" style="left:78%;top:35%;">
         <div class="pin-dot" style="background:var(--orange);color:var(--orange);box-shadow:0 0 20px var(--orange)"></div>
@@ -309,11 +442,11 @@
   </section>
 
   <!-- GALLERY CARDS -->
-  <section class="galleries-section">
+  <section class="galleries-section" id="galerias">
     <span class="section-label" style="color:rgba(23,23,23,.5)">// Nuestras ubicaciones</span>
     <h2 class="section-title">Cada galería,<br>una <span style="color:var(--blue)">oportunidad</span></h2>
     <div class="galleries-grid">
-      <div class="gallery-card">
+      <div class="gallery-card" data-gallery="1" onclick="openModal(1)" role="button" tabindex="0">
         <div class="gallery-card-num">01</div>
         <div class="gallery-card-body">
           <div class="gallery-card-zone">Las Mercedes · Baruta</div>
@@ -326,7 +459,7 @@
         </div>
         <div class="gallery-card-line" style="background:var(--blue)"></div>
       </div>
-      <div class="gallery-card">
+      <div class="gallery-card" data-gallery="2" onclick="openModal(2)" role="button" tabindex="0">
         <div class="gallery-card-num">02</div>
         <div class="gallery-card-body">
           <div class="gallery-card-zone">Av. Fco. de Miranda · Chacao</div>
@@ -339,11 +472,11 @@
         </div>
         <div class="gallery-card-line" style="background:var(--green)"></div>
       </div>
-      <div class="gallery-card">
+      <div class="gallery-card" data-gallery="3" onclick="openModal(3)" role="button" tabindex="0">
         <div class="gallery-card-num">03</div>
         <div class="gallery-card-body">
-          <div class="gallery-card-zone">Calle Helice · Chacao</div>
-          <h3 class="gallery-card-name">Galería Helice</h3>
+          <div class="gallery-card-zone">Calle Elice · Chacao</div>
+          <h3 class="gallery-card-name">Galería Elice</h3>
           <p class="gallery-card-desc">Nodo estratégico de Chacao con una de las tasas de flujo vehicular más altas del municipio. Ideal para campañas de alto impacto.</p>
           <div class="gallery-card-specs">
             <div class="gallery-spec"><div class="gallery-spec-val" style="color:var(--yellow)">52K</div><div class="gallery-spec-lbl">Vehículos/día</div></div>
@@ -352,7 +485,7 @@
         </div>
         <div class="gallery-card-line" style="background:var(--yellow)"></div>
       </div>
-      <div class="gallery-card">
+      <div class="gallery-card" data-gallery="4" onclick="openModal(4)" role="button" tabindex="0">
         <div class="gallery-card-num">04</div>
         <div class="gallery-card-body">
           <div class="gallery-card-zone">Aeropuerto · Maiquetía</div>
@@ -364,6 +497,22 @@
           </div>
         </div>
         <div class="gallery-card-line" style="background:var(--orange)"></div>
+      </div>
+    </div>
+
+    <!-- MODAL CARRUSEL -->
+    <div id="gallery-modal" class="custom-modal">
+      <div id="gallery-modal-content" class="custom-modal-content">
+        <button id="gallery-modal-close" class="custom-modal-close">&times;</button>
+        <div id="gallery-carousel" class="custom-carousel">
+          <button id="gallery-prev" class="custom-carousel-btn">&#8592;</button>
+          <div id="gallery-media-container" class="custom-media-container">
+            <img id="gallery-carousel-img" src="" alt="Imagen galería" style="display:none;">
+            <video id="gallery-carousel-video" autoplay muted loop playsinline style="display:none;"></video>
+          </div>
+          <button id="gallery-next" class="custom-carousel-btn">&#8594;</button>
+        </div>
+        <div id="gallery-carousel-dots" class="custom-carousel-dots"></div>
       </div>
     </div>
   </section>
@@ -478,6 +627,102 @@
     gsap.from('.page-hero-inner',{opacity:0,y:60,duration:1.2,ease:'power3.out'});
     gsap.utils.toArray('.gallery-card').forEach((el,i)=>{gsap.from(el,{opacity:0,y:30,duration:.7,ease:'power3.out',delay:i*.1,scrollTrigger:{trigger:el,start:'top 85%'}});});
     gsap.utils.toArray('.tech-card').forEach((el,i)=>{gsap.from(el,{opacity:0,y:30,duration:.6,ease:'power3.out',delay:i*.1,scrollTrigger:{trigger:el,start:'top 85%'}});});
+
+    // --- MODAL CARRUSEL ---
+    const galleryImages = {
+      1: [
+        '../images/galerias/mercedes1.webm',
+        '../images/night/3.webp',
+        '../images/galerias/mercedes2.webp'
+      ],
+      2: [
+        '../images/galerias/miranda1.webm',
+        '../images/galerias/miranda2.webp',
+        '../images/galerias/miranda3.webp',
+        '../images/galerias/miranda4.webp'
+      ],
+      3: [
+        '../images/galerias/elice1.webm',
+        '../images/galerias/elice2.webp',
+        '../images/galerias/elice3.webp'
+      ],
+      4: [
+        '../images/galerias/aero3.webm',
+        '../images/galerias/aero1.webp',
+        '../images/galerias/aero2.webp'
+      ]
+    };
+    const modal = document.getElementById('gallery-modal');
+    const modalImg = document.getElementById('gallery-carousel-img');
+    const modalVideo = document.getElementById('gallery-carousel-video');
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+    const closeBtn = document.getElementById('gallery-modal-close');
+    const dotsWrap = document.getElementById('gallery-carousel-dots');
+    let currentGallery = 1;
+    let currentIndex = 0;
+
+    function openModal(gallery) {
+      currentGallery = gallery;
+      currentIndex = 0;
+      updateModalImage();
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      modalVideo.pause(); // Pause video when modal is closed
+    }
+    function updateModalImage() {
+      const imgs = galleryImages[currentGallery];
+      const src = imgs[currentIndex];
+      
+      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+        modalImg.style.display = 'none';
+        modalVideo.style.display = 'block';
+        modalVideo.src = src;
+        modalVideo.play();
+      } else {
+        modalVideo.style.display = 'none';
+        modalVideo.pause();
+        modalImg.style.display = 'block';
+        modalImg.src = src;
+      }
+
+      // Dots
+      dotsWrap.innerHTML = '';
+      imgs.forEach((_,i)=>{
+        const dot = document.createElement('button');
+        dot.style.width = dot.style.height = '10px';
+        dot.style.borderRadius = '50%';
+        dot.style.border = 'none';
+        dot.style.background = i === currentIndex ? '#FFD426' : '#444';
+        dot.style.cursor = 'pointer';
+        dot.addEventListener('click',()=>{currentIndex=i;updateModalImage();});
+        dotsWrap.appendChild(dot);
+      });
+    }
+    prevBtn.onclick = ()=>{
+      const imgs = galleryImages[currentGallery];
+      currentIndex = (currentIndex-1+imgs.length)%imgs.length;
+      updateModalImage();
+    };
+    nextBtn.onclick = ()=>{
+      const imgs = galleryImages[currentGallery];
+      currentIndex = (currentIndex+1)%imgs.length;
+      updateModalImage();
+    };
+    closeBtn.onclick = closeModal;
+    modal.onclick = e=>{if(e.target===modal)closeModal();};
+
+    document.addEventListener('keydown',e=>{
+      if(modal.style.display==='flex'){
+        if(e.key==='Escape')closeModal();
+        if(e.key==='ArrowLeft')prevBtn.click();
+        if(e.key==='ArrowRight')nextBtn.click();
+      }
+    });
   </script>
 </body>
 </html>

@@ -25,6 +25,8 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     html { scroll-behavior: smooth; }
+    
+    a {text-decoration: none; }
 
     body {
       background: #000;
@@ -100,7 +102,7 @@
       font-weight: 700; font-size: 13px;
       letter-spacing: .2em; text-transform: uppercase;
       color: rgba(255,255,255,.6);
-      text-decoration: none;
+      text-decoration: none !important;
       transition: color .3s;
     }
     .nav-links a:hover { color: var(--yellow); }
@@ -1628,35 +1630,35 @@
       </svg>
 
       <!-- Pins -->
-      <div class="map-pin active" style="left:23%;top:42%;"
+      <a class="map-pin active" style="left:23%;top:42%;" href="../galerias/index.html#galerias"
            data-name="Las Mercedes" data-res="256x896" data-flow="45,000 peatones/día" data-color="var(--blue)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--blue);color:var(--blue);box-shadow:0 0 20px var(--blue)"></div>
         <div class="pin-label" style="border-color:var(--blue);color:var(--blue)">Las Mercedes</div>
-      </div>
+      </a>
 
-      <div class="map-pin" style="left:42%;top:38%;"
+      <a class="map-pin" style="left:42%;top:38%;" href="../galerias/index.html#galerias"
            data-name="Av. Francisco de Miranda" data-res="256x896" data-flow="38,000 vehículos/día" data-color="var(--green)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--green);color:var(--green);box-shadow:0 0 20px var(--green)"></div>
         <div class="pin-label" style="border-color:var(--green);color:var(--green)">Av. Francisco de Miranda</div>
-      </div>
+    </a>
 
-      <div class="map-pin" style="left:62%;top:45%;"
-           data-name="Calle Helice" data-res="256x896" data-flow="52,000 vehículos/día" data-color="var(--yellow)" onclick="selectPin(this)">
+      <a class="map-pin" style="left:62%;top:45%;" href="../galerias/index.html#galerias"
+           data-name="Calle Elice" data-res="256x896" data-flow="52,000 vehículos/día" data-color="var(--yellow)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--yellow);color:var(--yellow);box-shadow:0 0 20px var(--yellow)"></div>
-        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">Calle Helice</div>
-      </div>
+        <div class="pin-label" style="border-color:var(--yellow);color:var(--yellow)">Calle Elice</div>
+      </a>
 
-      <div class="map-pin" style="left:78%;top:35%;"
+      <a class="map-pin" style="left:78%;top:35%;" href="../galerias/index.html#galerias"
            data-name="Aeropuerto" data-res="256x896" data-flow="61,000 peatones/día" data-color="var(--orange)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--orange);color:var(--orange);box-shadow:0 0 20px var(--orange)"></div>
         <div class="pin-label" style="border-color:var(--orange);color:var(--orange)">Aeropuerto</div>
-      </div>
+      </a>
 
-      <div class="map-pin" style="left:35%;top:65%;"
+      <a class="map-pin" style="left:35%;top:65%;" href="../galerias/index.html#galerias"
            data-name="Metro de Plaza Venezuela" data-res="256x896" data-flow="29,000 vehículos/día" data-color="var(--red)" onclick="selectPin(this)">
         <div class="pin-dot" style="background:var(--red);color:var(--red);box-shadow:0 0 20px var(--red)"></div>
         <div class="pin-label" style="border-color:var(--red);color:var(--red)">Metro de Plaza Venezuela</div>
-      </div>
+      </a>
 
       <!-- Info panel -->
       <div class="map-pin-info visible" id="map-info">
@@ -1758,7 +1760,7 @@
         </p>
         <div class="band-metrics" style="margin-top:32px;display:flex;gap:32px">
           <div>
-            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--red);text-shadow:0 0 30px rgba(230,57,70,.3)">200<span style="font-size:50%;opacity:.6">+</span></div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;color:var(--red);text-shadow:0 0 30px rgba(230,57,70,.3)">999<span style="font-size:50%;opacity:.6">+</span></div>
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3em;color:rgba(23,23,23,.55);text-transform:uppercase;margin-top:4px">Posiciones</div>
           </div>
           <div>
@@ -1857,7 +1859,7 @@
         <div class="band-pole" style="height:175px"></div>
         <div class="band-flag">
           <div class="band-flag-item" style="background:linear-gradient(180deg,var(--yellow),#9a7800);box-shadow:0 0 20px rgba(255,212,38,.6),0 0 60px rgba(255,212,38,.2)" onmouseenter="highlightBand(this,'var(--yellow)')" onmouseleave="unhighlightBand(this)">
-            <div class="band-flag-inner"><span class="band-flag-text" style="color:#ffffff">C. Helice</span><div class="band-flag-scan"></div></div>
+            <div class="band-flag-inner"><span class="band-flag-text" style="color:#ffffff">C. Elice</span><div class="band-flag-scan"></div></div>
           </div>
         </div>
       </div>
@@ -1880,7 +1882,7 @@
         VISUALIZACIÓN · BANDEROLAS
       </div>
       <div class="band-scene-status" style="position:absolute;bottom:16px;right:24px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(230,57,70,.55)">
-        ● 200+ POSICIONES ACTIVAS
+        ● 999+ POSICIONES ACTIVAS
       </div>
     </div>
 
@@ -1894,7 +1896,7 @@
           <rect x="18" y="14" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1"/>
         </svg>
         <h3 class="band-feat-title">Cobertura Total Chacao</h3>
-        <p class="band-feat-desc">Más de 200 posiciones distribuidas en todos los corredores viales del municipio: Av. Francisco de Miranda, Av. Libertador, Calle Sorocaima, El Rosal, Las Mercedes y más.</p>
+        <p class="band-feat-desc">Más de <strong style="color:#111;font-weight:700">1000 banderolas</strong> distribuidas en todos los corredores viales del municipio: Av. Francisco de Miranda, Av. Libertador, Calle Sorocaima, El Rosal, Las Mercedes y más.</p>
         <div class="band-feat-line"></div>
       </div>
       <div class="band-feat">
