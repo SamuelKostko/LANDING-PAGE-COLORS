@@ -1561,24 +1561,15 @@
   <section class="tech-section">
     <span class="section-label">// Exclusividad</span>
     <h2 class="section-title">Galerias de Pantallas<br><span class="rainbow-text">EXCLUSIVAS</span></h2>
-    <div class="tech-grid">
-      <div class="tech-card">
-        <div class="tech-val" style="color:var(--blue)">4K<span style="font-size:50%;opacity:.6">+</span></div>
-        <div class="tech-lbl">PD</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-val" style="color:var(--green)">5,000<span style="font-size:50%;opacity:.6">nits</span></div>
-        <div class="tech-lbl">PD</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-val" style="color:var(--yellow)">24<span style="font-size:50%;opacity:.6">h</span></div>
-        <div class="tech-lbl">PD</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-val" style="color:var(--purple)">160°<span style="font-size:50%;opacity:.6"></span></div>
-        <div class="tech-lbl">PD</div>
-      </div>
-    </div>
+
+    <p class="tech-intro"
+      style="font-family:'Montserrat',sans-serif;font-size:20px;line-height:1.8;color:rgba(255,255,255,.6);max-width:850px;margin-bottom:64px">
+      En <strong style="color:#fff">COLORS</strong>, diseñamos y construimos estructuras LED de gran formato
+      personalizadas para proyectos especiales. Desarrollamos galer&iacute;as de pantallas exclusivas que se integran
+      perfectamente a la arquitectura de cada edificio o local comercial, ofreciendo una soluci&oacute;n llave en mano
+      que eleva el valor de su propiedad y posiciona su marca con tecnolog&iacute;a de vanguardia.
+    </p>
+
   </section>
 
   <!-- CTA -->
@@ -1672,6 +1663,7 @@
     gsap.registerPlugin(ScrollTrigger);
     gsap.from('.page-hero-inner', { opacity: 0, y: 60, duration: 1.2, ease: 'power3.out' });
     gsap.utils.toArray('.gallery-card').forEach((el, i) => { gsap.from(el, { opacity: 0, y: 30, duration: .7, ease: 'power3.out', delay: i * .1, scrollTrigger: { trigger: el, start: 'top 85%' } }); });
+    gsap.from('.tech-intro', { opacity: 0, y: 30, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.tech-intro', start: 'top 85%' } });
     gsap.utils.toArray('.tech-card').forEach((el, i) => { gsap.from(el, { opacity: 0, y: 30, duration: .6, ease: 'power3.out', delay: i * .1, scrollTrigger: { trigger: el, start: 'top 85%' } }); });
 
     // --- MODAL CARRUSEL ---

@@ -1173,6 +1173,47 @@
         display: none;
       }
     }
+
+    /* ── VERTICAL VISUALS (Desktop only) ── */
+    .services-visuals-desktop {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(0, 0, 0, .12);
+      border: 1px solid rgba(0, 0, 0, .08);
+      overflow: hidden;
+      margin-bottom: 64px;
+    }
+
+    @media (min-width: 1024px) {
+      .services-visuals-desktop {
+        display: grid;
+      }
+    }
+
+    .service-visual {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+
+    .service-visual.aspect-vertical {
+      aspect-ratio: 9/16;
+    }
+
+    .service-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s cubic-bezier(.22, .61, .36, 1), filter .4s ease;
+      filter: brightness(0.9);
+    }
+
+    .service-visual:hover img {
+      transform: scale(1.1);
+      filter: brightness(1);
+    }
   </style>
 </head>
 
@@ -1331,6 +1372,14 @@
   <section class="features-section">
     <span class="section-label">// Por qué elegir banderolas</span>
     <h2 class="section-title">Formato que<br><span style="color:var(--red)">impacta</span></h2>
+
+    <!-- Feature cards -->
+    <div class="services-visuals-desktop">
+      <div class="service-visual aspect-vertical"><img src="../images/banderolas/4.webp" alt="Banderolas"></div>
+      <div class="service-visual aspect-vertical"><img src="../images/banderolas/farmatodo1.webp" alt="Galería LED"></div>
+      <div class="service-visual aspect-vertical"><img src="../images/banderolas/bancaribe1.webp" alt="Vallas"></div>
+      <div class="service-visual aspect-vertical"><img src="../images/banderolas/flips1.webp" alt="Activaciones"></div>
+    </div>
     <div class="features-grid">
       <div class="feat-card">
         <div class="feat-num">01 — COBERTURA</div>
