@@ -1142,29 +1142,32 @@
     <!-- FORM -->
     <div class="form-wrapper" id="form-wrapper">
       <span class="form-label-section">// Solicitar cotización</span>
-      <div id="contact-form">
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Llave de Web3Forms activa -->
+        <input type="hidden" name="access_key" value="8c7ab11d-d8b2-4b91-a6e5-f9e09547dc92">
+        
         <div class="field-group">
           <label class="field-label">Nombre completo</label>
-          <input type="text" class="field-input" placeholder="Tu nombre">
+          <input type="text" name="name" class="field-input" placeholder="Tu nombre" required>
         </div>
         <div class="field-row">
           <div class="field-group">
             <label class="field-label">Empresa / Marca</label>
-            <input type="text" class="field-input" placeholder="Nombre de tu empresa">
+            <input type="text" name="company" class="field-input" placeholder="Nombre de tu empresa">
           </div>
           <div class="field-group">
             <label class="field-label">Teléfono</label>
-            <input type="tel" class="field-input" placeholder="+58 412 000 0000">
+            <input type="tel" name="phone" class="field-input" placeholder="+58 412 000 0000" required>
           </div>
         </div>
         <div class="field-group">
           <label class="field-label">Correo electrónico</label>
-          <input type="email" class="field-input" placeholder="tu@correo.com">
+          <input type="email" name="email" class="field-input" placeholder="tu@correo.com" required>
         </div>
         <div class="field-group">
           <label class="field-label">¿Qué formato te interesa?</label>
           <div class="select-wrap">
-            <select class="field-input">
+            <select name="format" class="field-input" required>
               <option value="" disabled selected>Selecciona un formato</option>
               <option>Banderolas · Municipio Chacao</option>
               <option>Galerías de Pantallas LED</option>
@@ -1176,14 +1179,14 @@
         </div>
         <div class="field-group">
           <label class="field-label">Mensaje (opcional)</label>
-          <textarea class="field-input"
+          <textarea name="message" class="field-input"
             placeholder="Cuéntanos más sobre tu campaña, fechas deseadas, objetivos..."></textarea>
         </div>
-        <button class="submit-btn" onclick="submitForm()">
+        <button type="submit" class="submit-btn" id="submit-btn">
           <div class="submit-bg"></div>
-          <span>Enviar solicitud</span>
+          <span id="submit-text">Enviar solicitud</span>
         </button>
-      </div>
+      </form>
       <!-- SUCCESS -->
       <div class="form-success" id="form-success">
         <div class="success-icon">✓</div>
@@ -1206,17 +1209,17 @@
         </div>
         <div class="info-card">
           <div class="info-card-title">Horario de atención</div>
-          <div class="info-card-val">Lun – Vie · 8am – 4pm</div>
+          <div class="info-card-val">Lun – Vie · 8am – 5pm</div>
           <div class="info-card-sub">Hora de Venezuela (VET)</div>
         </div>
         <div class="info-card">
-          <div class="info-card-title">WhatsApp comercial</div>
-          <div class="info-card-val">+58 412 358 0995</div>
+          <div class="info-card-title">Teléfono comercial</div>
+          <div class="info-card-val">0212 720 6090</div>
           <div class="info-card-sub">Respuesta inmediata en horario laboral</div>
         </div>
         <div class="info-card">
           <div class="info-card-title">Correo</div>
-          <div class="info-card-val">INSERTAMOS CORREO VERDADERO</div>
+          <div class="info-card-val">[EMAIL_ADDRESS]</div>
           <div class="info-card-sub">Cotizaciones · Clientes · Soporte</div>
         </div>
       </div>
@@ -1340,14 +1343,62 @@
       inp.addEventListener('blur', () => { cur.style.background = 'var(--yellow)'; });
     });
 
-    // Form submit
-    window.submitForm = function () {
-      const form = document.getElementById('contact-form');
-      const success = document.getElementById('form-success');
-      form.style.opacity = '0';
-      form.style.transition = 'opacity .4s';
-      setTimeout(() => { form.style.display = 'none'; success.classList.add('visible'); }, 400);
-    };
+    // Form submit logic using Web3Forms
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Update UI to loading state
+      submitBtn.style.pointerEvents = 'none';
+      submitText.textContent = 'Enviando...';
+      
+      const formData = new FormData(contactForm);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+      })
+      .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+          // Success
+          contactForm.style.opacity = '0';
+          contactForm.style.transition = 'opacity .4s ease';
+          setTimeout(() => {
+            contactForm.style.display = 'none';
+            formSuccess.classList.add('visible');
+            formSuccess.style.opacity = '0';
+            setTimeout(() => {
+              formSuccess.style.transition = 'opacity .6s ease';
+              formSuccess.style.opacity = '1';
+            }, 10);
+          }, 400);
+        } else {
+          // Response error
+          console.log(response);
+          submitText.textContent = 'Error al enviar';
+          submitBtn.style.pointerEvents = 'auto';
+          alert("Hubo un problema al enviar la solicitud. Por favor, intente de nuevo.");
+        }
+      })
+      .catch(error => {
+        // Network error
+        console.log(error);
+        submitText.textContent = 'Error de conexión';
+        submitBtn.style.pointerEvents = 'auto';
+        alert("Error de conexión. Verifique su internet e intente de nuevo.");
+      });
+    });
 
     gsap.registerPlugin(ScrollTrigger);
     gsap.from('.page-hero-inner', { opacity: 0, y: 60, duration: 1.2, ease: 'power3.out' });
