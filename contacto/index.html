@@ -931,8 +931,10 @@
       }
 
       .page-hero {
-        min-height: auto;
+        min-height: 100vh;
         padding: 100px 16px 56px;
+        display: flex;
+        align-items: center;
       }
 
       .page-headline {
@@ -1145,7 +1147,7 @@
       <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
         <!-- Llave de Web3Forms activa -->
         <input type="hidden" name="access_key" value="8c7ab11d-d8b2-4b91-a6e5-f9e09547dc92">
-        
+
         <div class="field-group">
           <label class="field-label">Nombre completo</label>
           <input type="text" name="name" class="field-input" placeholder="Tu nombre" required>
@@ -1216,11 +1218,6 @@
           <div class="info-card-title">Teléfono comercial</div>
           <div class="info-card-val">0212 720 6090</div>
           <div class="info-card-sub">Respuesta inmediata en horario laboral</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title">Correo</div>
-          <div class="info-card-val">[EMAIL_ADDRESS]</div>
-          <div class="info-card-sub">Cotizaciones · Clientes · Soporte</div>
         </div>
       </div>
       <a href="https://instagram.com/colorspublicidadexterior" target="_blank" class="social-card">
@@ -1349,13 +1346,13 @@
     const submitBtn = document.getElementById('submit-btn');
     const submitText = document.getElementById('submit-text');
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       // Update UI to loading state
       submitBtn.style.pointerEvents = 'none';
       submitText.textContent = 'Enviando...';
-      
+
       const formData = new FormData(contactForm);
       const object = Object.fromEntries(formData);
       const json = JSON.stringify(object);
@@ -1363,41 +1360,41 @@
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: json
       })
-      .then(async (response) => {
-        let json = await response.json();
-        if (response.status == 200) {
-          // Success
-          contactForm.style.opacity = '0';
-          contactForm.style.transition = 'opacity .4s ease';
-          setTimeout(() => {
-            contactForm.style.display = 'none';
-            formSuccess.classList.add('visible');
-            formSuccess.style.opacity = '0';
+        .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+            // Success
+            contactForm.style.opacity = '0';
+            contactForm.style.transition = 'opacity .4s ease';
             setTimeout(() => {
-              formSuccess.style.transition = 'opacity .6s ease';
-              formSuccess.style.opacity = '1';
-            }, 10);
-          }, 400);
-        } else {
-          // Response error
-          console.log(response);
-          submitText.textContent = 'Error al enviar';
+              contactForm.style.display = 'none';
+              formSuccess.classList.add('visible');
+              formSuccess.style.opacity = '0';
+              setTimeout(() => {
+                formSuccess.style.transition = 'opacity .6s ease';
+                formSuccess.style.opacity = '1';
+              }, 10);
+            }, 400);
+          } else {
+            // Response error
+            console.log(response);
+            submitText.textContent = 'Error al enviar';
+            submitBtn.style.pointerEvents = 'auto';
+            alert("Hubo un problema al enviar la solicitud. Por favor, intente de nuevo.");
+          }
+        })
+        .catch(error => {
+          // Network error
+          console.log(error);
+          submitText.textContent = 'Error de conexión';
           submitBtn.style.pointerEvents = 'auto';
-          alert("Hubo un problema al enviar la solicitud. Por favor, intente de nuevo.");
-        }
-      })
-      .catch(error => {
-        // Network error
-        console.log(error);
-        submitText.textContent = 'Error de conexión';
-        submitBtn.style.pointerEvents = 'auto';
-        alert("Error de conexión. Verifique su internet e intente de nuevo.");
-      });
+          alert("Error de conexión. Verifique su internet e intente de nuevo.");
+        });
     });
 
     gsap.registerPlugin(ScrollTrigger);

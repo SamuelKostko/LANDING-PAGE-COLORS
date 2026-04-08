@@ -395,6 +395,20 @@
       text-transform: uppercase;
     }
 
+    .hero-main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(16px, 3vw, 24px);
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.9);
+      max-width: 550px;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.5;
+      font-weight: 800;
+      text-align: left;
+      text-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
     .led-headline {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
@@ -1872,6 +1886,10 @@
         padding: 96px 0 72px;
       }
 
+      .hero-main-title {
+        text-align: center;
+      }
+
       .hero-screen {
         position: relative;
         padding: 0 16px;
@@ -2329,16 +2347,16 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <video class="background-video" style="opacity: 50%;" autoplay loop muted playsinline>
-      <source src="/images/galerias/mercedes1.webm" type="video/webm">
+    <video class="background-video" style="opacity: 30%; filter: brightness(0.5);" autoplay loop muted playsinline>
+      <source src="/images/netuno.webm" type="video/webm">
       Tu navegador no soporta el video de fondo.
     </video>
     <div class="hero-screen">
-      <div class="led-headline">
-        <span class="manifiesto-line">COLORS</span>
-        <div>
-          <img src="/images/logowhite.webp" alt="Logo Colors" class="led-logo">
-        </div>
+      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px; padding: 20px; z-index: 10;">
+        <img src="/images/logowhite.webp" alt="Logo Colors" style="width: 140px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));">
+        <h2 class="hero-main-title">
+          LA CIUDAD ES NUESTRO LIENZO.<br><span style="color: var(--yellow);">TU MARCA ES EL COLOR.</span>
+        </h2>
       </div>
     </div>
     <div class="hero-ground"></div>
