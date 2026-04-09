@@ -4,7 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COLORS Publicidad Exterior | Caracas</title>
+  <title>COLORS Publicidad Exterior | La ciudad es nuestro lienzo</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Líderes en Publicidad Exterior en Caracas. Banderolas en Chacao, Galerías de Pantallas LED y Vallas de alto impacto. Tu marca con el mejor color y ubicación.">
+  <meta name="keywords"
+    content="publicidad exterior caracas, vallas caracas, pantallas led caracas, banderolas chacao, ooh venezuela, colors publicidad">
+  <meta name="author" content="COLORS Publicidad Exterior">
+  <link rel="canonical" href="https://colorsxxi.com/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://colorsxxi.com/">
+  <meta property="og:title" content="COLORS | Publicidad Exterior de Alto Impacto">
+  <meta property="og:description"
+    content="Transformamos la ciudad en el lienzo de tu marca. Especialistas en OOH, pantallas LED y circuitos de banderolas en Caracas.">
+  <meta property="og:image" content="https://colorsxxi.com/images/vallas/valla.webp">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://colorsxxi.com/">
+  <meta property="twitter:title" content="COLORS | Publicidad Exterior">
+  <meta property="twitter:description"
+    content="Especialistas en OOH y pantallas LED en los mejores corredores viales de Caracas.">
+  <meta property="twitter:image" content="https://colorsxxi.com/images/vallas/valla.webp">
+
   <link rel="icon" href="/images/logowhite.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
@@ -399,14 +424,31 @@
       font-family: 'Montserrat', sans-serif;
       font-size: clamp(16px, 3vw, 24px);
       letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.9);
-      max-width: 550px;
+      color: #fff;
+      max-width: 800px;
       text-transform: uppercase;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.2;
       font-weight: 800;
       text-align: left;
-      text-shadow: 0 0 20px rgba(0,0,0,0.8);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-main-title span {
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .hero-main-title .glow-blue {
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 30px var(--blue), 0 0 60px rgba(30, 91, 168, 0.4);
+    }
+
+    .hero-main-title .glow-yellow {
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 30px var(--yellow), 0 0 60px rgba(255, 212, 38, 0.4);
+    }
+
+    .hero-main-title .glow-red {
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 30px var(--red), 0 0 60px rgba(230, 57, 70, 0.4);
     }
 
     .led-headline {
@@ -421,32 +463,32 @@
 
     .led-headline .c-blue {
       color: var(--blue);
-      text-shadow: 0 0 40px var(--blue), 0 0 80px rgba(30, 91, 168, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--blue), 0 0 80px rgba(30, 91, 168, .6);
     }
 
     .led-headline .c-green {
       color: var(--green);
-      text-shadow: 0 0 40px var(--green), 0 0 80px rgba(122, 201, 67, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--green), 0 0 80px rgba(122, 201, 67, .6);
     }
 
     .led-headline .c-yellow {
       color: var(--yellow);
-      text-shadow: 0 0 40px var(--yellow), 0 0 80px rgba(255, 212, 38, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--yellow), 0 0 80px rgba(255, 212, 38, .6);
     }
 
     .led-headline .c-orange {
       color: var(--orange);
-      text-shadow: 0 0 40px var(--orange), 0 0 80px rgba(255, 140, 26, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--orange), 0 0 80px rgba(255, 140, 26, .6);
     }
 
     .led-headline .c-red {
       color: var(--red);
-      text-shadow: 0 0 40px var(--red), 0 0 80px rgba(230, 57, 70, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--red), 0 0 80px rgba(230, 57, 70, .6);
     }
 
     .led-headline .c-purple {
       color: var(--purple);
-      text-shadow: 0 0 40px var(--purple), 0 0 80px rgba(155, 89, 182, .5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px var(--purple), 0 0 80px rgba(155, 89, 182, .6);
     }
 
     .led-sub {
@@ -455,7 +497,8 @@
       font-size: clamp(14px, 1.5vw, 22px);
       letter-spacing: .3em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, .5);
+      color: rgba(255, 255, 255, .7);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     }
 
     /* Corner ornaments */
@@ -550,7 +593,7 @@
       align-items: center;
       height: 100%;
       white-space: nowrap;
-      animation: tickerScroll 30s linear infinite;
+      animation: tickerScroll 10s linear infinite;
     }
 
     .ticker-item {
@@ -2347,15 +2390,20 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <video class="background-video" style="opacity: 30%; filter: brightness(0.5);" autoplay loop muted playsinline>
+    <video class="background-video" style="opacity: 30%; filter: brightness(0.6);" autoplay loop muted playsinline>
       <source src="/images/netuno.webm" type="video/webm">
       Tu navegador no soporta el video de fondo.
     </video>
     <div class="hero-screen">
-      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px; padding: 20px; z-index: 10;">
-        <img src="/images/logowhite.webp" alt="Logo Colors" style="width: 140px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));">
+      <div
+        style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px; padding: 20px; z-index: 10;">
+        <img src="/images/logowhite.webp" alt="Logo Colors"
+          style="width: 140px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));">
         <h2 class="hero-main-title">
-          LA CIUDAD ES NUESTRO LIENZO.<br><span style="color: var(--yellow);">TU MARCA ES EL COLOR.</span>
+          LLEVAMOS TU MENSAJE <br>
+          <span class="glow-blue" style="color: var(--blue);">MÁS ALTO,</span>
+          <span class="glow-yellow" style="color: var(--yellow);">MÁS LEJOS,</span>
+          <span class="glow-red" style="color: var(--red);">MÁS CLARO</span>
         </h2>
       </div>
     </div>
@@ -2536,13 +2584,13 @@
       <div class="band-pole-group" style="left:15%">
         <div class="band-pole" style="height:180px"></div>
         <div class="band-flag">
-          <div class="band-flag-item"
+          <a href="banderolas/" class="band-flag-item"
             style="background:linear-gradient(180deg,var(--blue),#0d3a7a);box-shadow:0 0 20px rgba(30,91,168,.6),0 0 60px rgba(30,91,168,.2)"
             onmouseenter="highlightBand(this,'var(--blue)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">CHACAO</span>
               <div class="band-flag-scan"></div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2550,13 +2598,13 @@
       <div class="band-pole-group" style="left:30%">
         <div class="band-pole" style="height:190px"></div>
         <div class="band-flag">
-          <div class="band-flag-item"
+          <a href="banderolas/" class="band-flag-item"
             style="background:linear-gradient(180deg,var(--green),#3d7a14);box-shadow:0 0 20px rgba(122,201,67,.6),0 0 60px rgba(122,201,67,.2)"
             onmouseenter="highlightBand(this,'var(--green)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">AV LIBERT.</span>
               <div class="band-flag-scan"></div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2564,13 +2612,13 @@
       <div class="band-pole-group" style="left:48%">
         <div class="band-pole" style="height:200px;background:#444;box-shadow:0 0 8px rgba(255,140,26,.2)"></div>
         <div class="band-flag">
-          <div class="band-flag-item"
+          <a href="banderolas/" class="band-flag-item"
             style="width:44px;height:100px;background:linear-gradient(180deg,var(--orange),#a34800);box-shadow:0 0 30px rgba(255,140,26,.7),0 0 80px rgba(255,140,26,.3)"
             onmouseenter="highlightBand(this,'var(--orange)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text" style="font-size:8px">Av. Francisco</span>
               <div class="band-flag-scan"></div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2578,13 +2626,13 @@
       <div class="band-pole-group" style="left:65%">
         <div class="band-pole" style="height:175px"></div>
         <div class="band-flag">
-          <div class="band-flag-item"
+          <a href="banderolas/" class="band-flag-item"
             style="background:linear-gradient(180deg,var(--yellow),#9a7800);box-shadow:0 0 20px rgba(255,212,38,.6),0 0 60px rgba(255,212,38,.2)"
             onmouseenter="highlightBand(this,'var(--yellow)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text" style="color:#ffffff">C. Elice</span>
               <div class="band-flag-scan"></div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2592,13 +2640,13 @@
       <div class="band-pole-group" style="left:82%">
         <div class="band-pole" style="height:185px"></div>
         <div class="band-flag">
-          <div class="band-flag-item"
+          <a href="banderolas/" class="band-flag-item"
             style="background:linear-gradient(180deg,var(--red),#7a0d14);box-shadow:0 0 20px rgba(230,57,70,.6),0 0 60px rgba(230,57,70,.2)"
             onmouseenter="highlightBand(this,'var(--red)')" onmouseleave="unhighlightBand(this)">
             <div class="band-flag-inner"><span class="band-flag-text">ALTAMIRA</span>
               <div class="band-flag-scan"></div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -2880,7 +2928,7 @@
 
       <!-- 02 BND -->
       <div class="service-card">
-        <div class="service-num">02 — BND</div>
+        <div class="service-num">01 — BND</div>
         <div class="service-icon">
           <svg viewBox="0 0 52 52" fill="none">
             <line x1="26" y1="2" x2="26" y2="50" stroke="var(--orange)" stroke-width="2" />
@@ -2900,7 +2948,7 @@
 
       <!-- 01 LED -->
       <div class="service-card">
-        <div class="service-num">01 — LED</div>
+        <div class="service-num">02 — LED</div>
         <div class="service-icon">
           <svg viewBox="0 0 52 52" fill="none">
             <rect x="4" y="12" width="44" height="28" rx="2" stroke="var(--blue)" stroke-width="1.5" />
@@ -3117,16 +3165,11 @@
 
     // ── TICKER ──
     const tickerItems = [
-      { text: 'Las Mercedes · 5K LED', color: 'var(--blue)' },
-      { text: 'Banderolas · Av. Libertador', color: 'var(--orange)' },
-      { text: 'CCCT · Zona Comercial', color: 'var(--green)' },
+      { text: 'Galerias LED · Las Mercedes', color: 'var(--blue)' },
+      { text: 'Banderolas · Chacao', color: 'var(--orange)' },
+      { text: 'Galerias LED · Calle Elice', color: 'var(--green)' },
       { text: 'Banderolas · Chacao · 200+ posiciones', color: 'var(--orange)' },
-      { text: 'El Rosal · Av. Fco. de Miranda', color: 'var(--yellow)' },
-      { text: 'Banderolas · El Rosal · Doble Cara', color: 'var(--orange)' },
-      { text: 'Chacao · Alta Rotación LED', color: 'var(--blue)' },
-      { text: 'Banderolas · Altamira · Corredor', color: 'var(--orange)' },
-      { text: 'Altamira · Formato Vertical', color: 'var(--red)' },
-      { text: 'La Castellana · Premium Zone LED', color: 'var(--purple)' },
+
     ];
     const track = document.getElementById('ticker');
     const buildTicker = () => {

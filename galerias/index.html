@@ -4,7 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galerías de Pantallas | COLORS Publicidad Exterior</title>
+  <title>Galerías de Pantallas LED en Caracas | COLORS</title>
+  <meta name="description" content="Circuito exclusivo de 8+ galerías de pantallas LED en los principales corredores viales de Caracas. Alta resolución y máximo impacto visual.">
+  <meta property="og:title" content="Galerías de Pantallas LED | COLORS Publicidad Exterior">
+  <meta property="og:url" content="https://colorsxxi.com/galerias/">
+  <meta property="og:image" content="https://colorsxxi.com/images/vallas/valla.webp">
+  
   <link rel="icon" href="/images/logowhite.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
@@ -465,6 +470,18 @@
       border: 1px solid currentColor;
       opacity: 1;
       color: inherit;
+      transition: opacity .3s, transform .3s;
+    }
+
+    .map-watermark {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: rgba(255, 255, 255, .3);
+      pointer-events: none;
     }
 
     .gallery-info {
@@ -993,15 +1010,25 @@
       }
 
       .map-container {
-        height: 340px;
+        height: 440px;
       }
 
       .gallery-info {
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
         min-width: auto;
-        padding: 10px;
+        padding: 16px;
+        background: rgba(0, 0, 0, .92);
+        box-shadow: 0 -10px 30px rgba(0,0,0,.5);
+      }
+
+      .map-watermark {
+        bottom: auto;
+        top: 20px;
+        left: 20px;
+        font-size: 8px;
+        opacity: .5;
       }
 
       .gallery-info-row {
@@ -1112,10 +1139,16 @@
       }
 
       .map-container {
-        height: 280px;
+        height: 380px;
       }
 
       .pin-label {
+        padding: 2px 6px;
+        font-size: 7px;
+        letter-spacing: .1em;
+      }
+
+      .map-watermark {
         display: none;
       }
 
@@ -1512,9 +1545,7 @@
         <div class="gallery-info-row"><span>Pantallas</span><strong>8+ Galerías LED</strong></div>
         <div class="gallery-info-row"><span>Status</span><strong style="color:var(--green)">● OPERATIVAS</strong></div>
       </div>
-      <div
-        style="position:absolute;bottom:32px;left:32px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.3);">
-        MAPA · ZONA METROPOLITANA CARACAS</div>
+      <div class="map-watermark">MAPA · ZONA METROPOLITANA CARACAS</div>
     </div>
   </section>
 
