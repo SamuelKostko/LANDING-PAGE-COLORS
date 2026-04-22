@@ -1159,9 +1159,7 @@
     <!-- FORM -->
     <div class="form-wrapper" id="form-wrapper">
       <span class="form-label-section">// Solicitar cotización</span>
-      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Llave de Web3Forms activa -->
-        <input type="hidden" name="access_key" value="8c7ab11d-d8b2-4b91-a6e5-f9e09547dc92">
+      <form id="contact-form">
 
         <div class="field-group">
           <label class="field-label">Nombre completo</label>
@@ -1365,23 +1363,28 @@
 
       // Update UI to loading state
       submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.opacity = '0.7';
       submitText.textContent = 'Enviando...';
 
       const formData = new FormData(contactForm);
       const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
 
-      fetch('https://api.web3forms.com/submit', {
+      // Detecta automáticamente si está en local o en producción
+      const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port === '5500'
+        ? 'http://localhost:3000/send-email'
+        : '/api/send-email'; // Cambia esto si tu backend de producción tiene otra ruta
+
+      fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: json
+        body: JSON.stringify(object)
       })
         .then(async (response) => {
-          let json = await response.json();
-          if (response.status == 200) {
+          const result = await response.json();
+          if (response.ok && result.success) {
             // Success
             contactForm.style.opacity = '0';
             contactForm.style.transition = 'opacity .4s ease';
@@ -1396,18 +1399,20 @@
             }, 400);
           } else {
             // Response error
-            console.log(response);
+            console.error(result);
             submitText.textContent = 'Error al enviar';
             submitBtn.style.pointerEvents = 'auto';
-            alert("Hubo un problema al enviar la solicitud. Por favor, intente de nuevo.");
+            submitBtn.style.opacity = '1';
+            alert("Hubo un problema al enviar la solicitud: " + (result.message || "Error desconocido"));
           }
         })
         .catch(error => {
           // Network error
-          console.log(error);
+          console.error(error);
           submitText.textContent = 'Error de conexión';
           submitBtn.style.pointerEvents = 'auto';
-          alert("Error de conexión. Verifique su internet e intente de nuevo.");
+          submitBtn.style.opacity = '1';
+          alert("Error de conexión con el servidor. Asegúrate de que el backend esté ejecutándose.");
         });
     });
 
